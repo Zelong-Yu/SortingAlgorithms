@@ -33,11 +33,12 @@ namespace SortingAlgorithms
 
                 int originalRight = right;
 
+                
                 while (left < right)
                 {
                     if (arr[left].CompareTo(pivotValue) > 0)
                     {
-                        Swap(ref arr[left], ref arr[right--]);
+                        Swap(ref arr[left], ref arr[--right]);
                     }
                     else left++;
                 }
@@ -45,7 +46,7 @@ namespace SortingAlgorithms
                 //put pivotvalue to correct location
                 Swap(ref arr[right], ref arr[originalRight]);
 
-                return pivotIndex;
+                return right;
             }
         }
 
