@@ -96,7 +96,7 @@ namespace SortingAlgorithms
             int k = left;
             while (i < m && j < n)
             {
-                if (subL[i].CompareTo(subR[j])<0)
+                if (subL[i].CompareTo(subR[j])<=0)
                 {
                     arr[k] = subL[i++];
                 }
@@ -120,6 +120,54 @@ namespace SortingAlgorithms
 
         }
 
-        
+        //in place merge sort, O(nlogn) computational
+        public static void MergeSortInPlace<T>(T[] input) where T : IComparable
+        {
+            helper(input, 0, input.Length - 1);
+
+            void helper(T[] arr, int left, int right)
+            {
+                if (left < right)
+                {
+                    int mid = left + (right - left) / 2;//to prevent overflow
+
+                    helper(arr, left, mid);
+                    helper(arr, mid + 1, right);
+
+                    mergeInplace(arr, left, mid, right);
+                }
+            }
+        }
+
+        private static void mergeInplace<T>(T[] arr, int left, int mid, int right) where T : IComparable
+        {
+            //start point of first and second subarray
+            int i = left;
+            int j = mid + 1;
+
+            //merge 2 subarrays back to original
+            int k = left;
+            while (i <= mid && j <= right)
+            {
+                if (arr[i].CompareTo(arr[j]) <= 0)
+                {
+                    i++;
+                }
+                else
+                {
+                    T temp = arr[j];
+                    //shift elements towards the right of j by 1
+                    for (int index = j; index >0; index--)
+                    {
+                        arr[index] = arr[index - 1];
+                    }
+                    arr[left] = temp;
+
+                    i++;
+                    mid++;
+                    j++;
+                }                
+            }
+        }
     }
 }
