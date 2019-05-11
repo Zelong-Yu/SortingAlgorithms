@@ -17,6 +17,15 @@ namespace AlgorithmPlayground
             {
                 Console.Write($"{item} ");
             }
+
+            Console.WriteLine();
+
+            /*int[] arr2 = new int[] { 3, 6, 9, 2, 3, 1, 0, -1, 10 };
+            Util.MergeSort(arr2);
+            foreach (var item in arr2)
+            {
+                Console.Write($"{item} ");
+            }*/
         }
     }
 }
