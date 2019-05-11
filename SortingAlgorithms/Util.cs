@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SortingAlgorithms
 {
-    public static class Util
+    public class Util
     {
         public static void QuickSort<T> (T[] input) where T : IComparable
         {
@@ -42,7 +42,7 @@ namespace SortingAlgorithms
                 }
 
                 //put pivotvalue to correct location
-                Swap(ref arr[left],ref arr[originalRight]);
+                Swap(ref arr[right],ref arr[originalRight]);
 
                 return pivotIndex;
             }
