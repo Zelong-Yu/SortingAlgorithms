@@ -186,18 +186,70 @@ namespace SortingAlgorithms
             }
         }
 
+        //improved bubblesort (O(n^2)) will reduce #swap when array is (partially) sorted already
         public static void BubbleSort<T>(T[] input) where T: IComparable
         {
-            for (int i = input.Length-1; i >= 0; i--) 
+            //mark last swap location
+            int lastSwapIndex = 0;
+            //boarder of unsorted part of array. only need to compare until here
+            int sortBorder = input.Length - 1;
+            bool isSorted;
+            do
             {
-                for (int j = 0; j < i; j++)
+                isSorted = true;
+                for (int j = 0; j < sortBorder; j++)
                 {
-                    if (input[j].CompareTo(input[j+1])>0)
+                    if (input[j].CompareTo(input[j + 1]) > 0)
                     {
-                        Swap(ref input[j], ref input[j+1]);
+                        Swap(ref input[j], ref input[j + 1]);
+                        isSorted = false;
+                        lastSwapIndex = j;
                     }
                 }
+                sortBorder = lastSwapIndex;
+                //if the array is sorted, no more loop needed.
+                if (isSorted) break;
+            } while (!isSorted);
+        }
+
+        //O(nlogn) computational, O(1) space
+        public static void HeapSort<T>(T[] input) where T: IComparable
+        {
+            //make a binary max heap from input
+            for (int i = input.Length/2-1; i >=0; i--)
+            {
+                bubbledown(input, i, input.Length);
             }
+
+            //pop out top of heap(current maximal), move to end of heap, bubbledown to get new top of heap
+            for (int i = input.Length-1; i > 0; i--)
+            {
+                Swap(ref input[0], ref input[i]);
+                bubbledown(input, 0, i);
+            }
+        }
+
+        private static void bubbledown<T>(T[] input, int parentIndex, int length) where T : IComparable
+        {
+            T temp = input[parentIndex];
+            int childIndex = 2 * parentIndex + 1;
+            while(childIndex<length)
+            {
+                //if there exists a right child, and right child larger than left child, move to right child
+                if (childIndex+1<length&&input[childIndex+1].CompareTo(input[childIndex])>0)
+                {
+                    childIndex++;
+                }
+                //if parent is larger then one child, break
+                if (temp.CompareTo(input[childIndex]) >= 0)
+                    break;
+                //bubbledown
+                input[parentIndex] = input[childIndex];
+                parentIndex = childIndex;
+                childIndex = 2 * childIndex + 1;
+            }
+            //put temp to final position
+            input[parentIndex] = temp;
         }
     }
 }

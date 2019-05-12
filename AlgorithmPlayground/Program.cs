@@ -11,6 +11,15 @@ namespace AlgorithmPlayground
     {
         static void Main(string[] args)
         {
+            bool IsRobotBounded(string instructions)
+            {
+                int numL = instructions.Count(x=>x=='L');
+                int numR = instructions.Count(x => x == 'R');
+                int numG = instructions.Count(x => x == 'G');
+                return (numL % 4 != numR % 4 || numG == 0);
+            }
+
+
             Console.WriteLine("Quicksort");
             int[] arr = new int[] { 3, 6, 9, 2, 3, 1, 0, -1, 10,5,14 };
             Util.QuickSort(arr);
@@ -54,6 +63,13 @@ namespace AlgorithmPlayground
                 Console.Write($"{item} ");
             }
 
+            Console.WriteLine("\nHeap Sort");
+            int[] arr6 = new int[] { 3, 6, 9, 2, 3, 1, 0, -1, 10, 14, 5 };
+            Util.HeapSort(arr6);
+            foreach (var item in arr6)
+            {
+                Console.Write($"{item} ");
+            }
         }
     }
 }
