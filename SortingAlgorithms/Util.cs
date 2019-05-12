@@ -146,7 +146,6 @@ namespace SortingAlgorithms
             int j = mid + 1;
 
             //merge 2 subarrays back to original
-            int k = left;
             while (i <= mid && j <= right)
             {
                 if (arr[i].CompareTo(arr[j]) <= 0)
@@ -157,16 +156,47 @@ namespace SortingAlgorithms
                 {
                     T temp = arr[j];
                     //shift elements towards the right of j by 1
-                    for (int index = j; index >0; index--)
+                    for (int index = j; index >i; index--)
                     {
                         arr[index] = arr[index - 1];
                     }
-                    arr[left] = temp;
+                    arr[i] = temp;
 
                     i++;
                     mid++;
                     j++;
                 }                
+            }
+        }
+
+        public static void InsertionSort<T>(T[] input) where T: IComparable
+        {
+            for (int i = 1; i < input.Length; i++)
+            {
+                //save the current input[i]
+                T temp = input[i];
+                int index = i - 1;
+                //shift elements right for 1 until finding the place to insert
+                while (index>=0 && input[index].CompareTo(temp)>0)
+                {
+                    input[index + 1] = input[index--];
+                }
+                //insert the current input[i] to index+1
+                input[index + 1] = temp;
+            }
+        }
+
+        public static void BubbleSort<T>(T[] input) where T: IComparable
+        {
+            for (int i = input.Length-1; i >= 0; i--) 
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (input[j].CompareTo(input[j+1])>0)
+                    {
+                        Swap(ref input[j], ref input[j+1]);
+                    }
+                }
             }
         }
     }
