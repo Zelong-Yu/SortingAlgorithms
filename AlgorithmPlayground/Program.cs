@@ -70,6 +70,15 @@ namespace AlgorithmPlayground
             {
                 Console.Write($"{item} ");
             }
+
+
+            Console.WriteLine("\nBucket Sort");
+            int[] arr7 = new int[] { 3, 6, 9, 2, 3, 1, 0, -1, 10, 14, 5, 100000000,-200000000};
+            Util.BucketSort(arr7);
+            foreach (var item in arr7)
+            {
+                Console.Write($"{item} ");
+            }
         }
     }
 }

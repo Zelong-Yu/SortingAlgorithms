@@ -251,5 +251,30 @@ namespace SortingAlgorithms
             //put temp to final position
             input[parentIndex] = temp;
         }
+
+        public static void BucketSort(int[] input)
+        {
+            int min = int.MaxValue;
+            int max = int.MinValue;
+            foreach (var n in input)
+            {
+                if (n < min) min = n;
+                if (n > max) max = n;
+            }
+            int[] buckets = new int[max - min + 1];
+            foreach (var n in input)
+            {
+                buckets[n - min]++;
+            }
+            int counter = 0;
+            for (int i = 0; i < buckets.Length; i++)
+            {
+                while(buckets[i]>0)
+                {
+                    input[counter++] = min + i;
+                    buckets[i]--;
+                }
+            }
+        }
     }
 }
